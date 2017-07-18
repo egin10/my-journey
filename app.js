@@ -9,8 +9,12 @@ const express = require('express'),
   flash = require('connect-flash'),
   mongoose = require('mongoose'),
   passport = require('passport'),
+  url = require('./config/db').url,
   app = express();
 
+//MongoDB Connection
+mongoose.Promise = require('bluebird');
+mongoose.connect(url, {useMongoClient: true});
 
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));

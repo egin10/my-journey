@@ -41,6 +41,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 require('./config/passport')(passport);
 app.use((req, res, next) => {
   res.locals.Auth = req.isAuthenticated();
+  res.locals.User = req.user || null;
   next();
 });
 

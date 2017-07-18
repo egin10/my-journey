@@ -1,16 +1,13 @@
 const express = require('express'),
   isNotAuth = require('../config/auth').notLogin,
+  indexController = require('../controllers/indexController');
   router = express.Router(),
   passport = require('passport');
 
 /* GET home page. */
-router.get('/', isNotAuth, (req, res, next) => {
-  res.render('main/index');
-});
+router.get('/', isNotAuth, indexController.index);
 
-router.get('/signup', isNotAuth, (req, res, next) => {
-  res.render('main/signup', { errors: req.flash('signUpMessage') });
-});
+router.get('/signup', isNotAuth, indexController.signUp);
 
 router.post('/signup', isNotAuth, passport.authenticate('signUp', {
   successRedirect: '/user',
@@ -18,9 +15,7 @@ router.post('/signup', isNotAuth, passport.authenticate('signUp', {
   failureFlash: true
 }));
 
-router.get('/entry', isNotAuth, (req, res, next) => {
-  res.render('main/entry', { errors: req.flash('signInMessage') });
-});
+router.get('/entry', isNotAuth, indexController.entry);
 
 router.post('/entry', isNotAuth, passport.authenticate('signIn', {
   successRedirect: '/user',

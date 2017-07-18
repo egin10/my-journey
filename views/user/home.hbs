@@ -1,5 +1,5 @@
 <div class="index">
-    <h1>Welcome Username</h1>
+    <h1>Welcome <b class="username">{{#if User}}{{User.username}}{{/if}}</b></h1>
     <p>Create your journey now.</p>
     <p><a href="/user/create-journey" class="btn btn-primary">Create <i class="fa fa-puzzle-piece" aria-hidden="true"></i></a></p>
 </div>

@@ -1,35 +1,25 @@
 const express = require('express'),
   isAuth = require('../config/auth').isLogin,
+  userController = require('../controllers/userController'),
   router = express.Router();
 
 /* GET users listing. */
-router.get('/', isAuth, (req, res, next) => {
-  res.render('user/index');
-});
+router.get('/', isAuth, userController.home);
 
-router.get('/create-journey', isAuth, (req, res, next) => {
-  res.render('user/journey');
-});
+router.get('/create-journey', isAuth, userController.createJourney);
 
 // router.post('/create-journey', (req, res, next) => {
 //   res.render('user/journey');
 // });
 
-router.get('/history', isAuth, (req, res, next) => {
-  res.render('user/history'); //list of journey
-});
+router.get('/history', isAuth, userController.history);
 
-router.get('/maps', isAuth, (req, res, next) => {
-  res.render('user/maps'); //maps where am i now
-});
+router.get('/maps', isAuth, userController.maps);
 
-router.get('/setting', isAuth, (req, res, next) => {
-  res.render('user/setting', { user: req.user }); //setting profile user
-});
+router.get('/setting', isAuth, userController.setting);
 
-router.get('/logout', isAuth, (req, res, next) => {
-  req.logout();
-  res.redirect('/');
-});
+router.post('/setting', isAuth, userController.settingPost);
+
+router.get('/logout', isAuth, userController.logout);
 
 module.exports = router;

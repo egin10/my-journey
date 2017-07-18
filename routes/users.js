@@ -26,4 +26,12 @@ router.get('/setting', (req, res, next) => {
   res.render('user/setting'); //setting profile user
 });
 
+router.get('/logout', (req, res, next) => {
+  req.logout((err) => {
+    if(err) throw err;
+
+    res.redirect('/');
+  });
+});
+
 module.exports = router;

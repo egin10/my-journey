@@ -37,6 +37,9 @@ app.use(flash());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//passport conf
+require('./config/passport')(passport);
+
 //=== ROUTES
 const index = require('./routes/index'),
   userRoute = require('./routes/users');

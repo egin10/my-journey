@@ -1,6 +1,9 @@
 <center>
     <h2><i class="fa fa-user-plus" aria-hidden="true"></i> Sign Up</h2>
 </center>
+{{#if errors}}
+    <div class="alert alert-danger">{{errors}}</div>
+{{/if}}
 <hr>
 <form action="/signup" method="post">
     <div class="form-group">
@@ -23,3 +26,7 @@
         <button type="submit" class="btn btn-success">Register <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button>
     </center>
 </form>
+<hr>
+<center>
+    <p> Already have an account? <a href="/entry">Sign in</a> </p>
+</center>

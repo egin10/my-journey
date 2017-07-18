@@ -24,7 +24,7 @@ router.get('/maps', isAuth, (req, res, next) => {
 });
 
 router.get('/setting', isAuth, (req, res, next) => {
-  res.render('user/setting'); //setting profile user
+  res.render('user/setting', { user: req.user }); //setting profile user
 });
 
 router.get('/logout', isAuth, (req, res, next) => {

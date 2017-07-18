@@ -14,7 +14,7 @@ const express = require('express'),
 
 //MongoDB Connection
 mongoose.Promise = require('bluebird');
-mongoose.connect(url, {useMongoClient: true});
+mongoose.connect(url, { useMongoClient: true });
 
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
@@ -39,6 +39,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //passport conf
 require('./config/passport')(passport);
+app.use((req, res, next) => {
+  res.locals.Auth = req.isAuthenticated();
+  next();
+});
 
 //=== ROUTES
 const index = require('./routes/index'),

@@ -39,10 +39,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //=== ROUTES
 const index = require('./routes/index'),
-  users = require('./routes/users');
+  userRoute = require('./routes/users');
 
 app.use('/', index);
-app.use('/users', users);
+app.use('/user', userRoute);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

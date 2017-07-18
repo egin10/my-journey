@@ -19,7 +19,7 @@ module.exports = passport => {
         passReqToCallback: true
     }, (req, username, password, done) => {
         User.findOne({ 'username': username }, (err, user) => {
-            if (err) return err;
+            if (err) return done(err);
 
             if (user) {
                 return done(null, false, req.flash('signUpMessage', 'Username is already taken'));
@@ -45,11 +45,15 @@ module.exports = passport => {
         User.findOne({ 'username': username }, (err, user) => {
             if (err) return done(err);
 
-            if (!user) return done(null, false, req.flash('signInMessage', 'Username is not found!'));
-            
-            if(!user.validPassword(password)) return done(null, false, req.flash('signInMessage', 'Password is wrong!'));
+            if (!user) {
+                return done(null, false, req.flash('signInMessage', 'Username not found'));
+            }
 
+            if (!user.validPassword(password)){
+                return done(null, false, req.flash('signInMessage', 'Password is wrong'));
+            }
             return done(null, user);
         });
     }));
+    
 };

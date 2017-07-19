@@ -2,6 +2,7 @@ const express = require('express'),
   isAuth = require('../config/auth').isLogin,
   userController = require('../controllers/userController'),
   journeyController = require('../controllers/journeyController'),
+  markerController = require('../controllers/markerController'),
   router = express.Router();
 
 /* GET users listing. */
@@ -9,9 +10,10 @@ router.get('/', isAuth, userController.home);
 
 router.get('/create-journey', isAuth, journeyController.createJourney);
 router.post('/create-journey', isAuth, journeyController.createJourneyPost);
-router.get('/create-marker', isAuth, journeyController.createMarker);
+
+router.get('/create-marker', isAuth, markerController.createMarker);
 // router.post('/create-marker', isAuth, journeyController.createMarkerPost);
-router.get('/create-marker-done', isAuth, journeyController.createMarkerDone);
+router.get('/create-marker-done', isAuth, markerController.createMarkerDone);
 
 router.get('/history', isAuth, journeyController.history);
 router.get('/history-details/:id', isAuth, journeyController.historyDetails);

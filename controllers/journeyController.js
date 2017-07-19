@@ -28,8 +28,6 @@ module.exports = {
                 newJourney.tittle = req.body.tittle;
                 newJourney.descriptions = req.body.descriptions;
                 newJourney.status = 'progress';
-                newJourney.create_at = new Date();
-                newJourney.update_at = new Date();
                 newJourney.save((err) => {
                     if (err) return err;
 
@@ -39,21 +37,9 @@ module.exports = {
             }
         });
     },
-    createMarker: (req, res, next) => {
-        res.render('user/marker', { messages: req.flash('journeyMessage') });
-    },
-    createMarkerDone: (req, res, next) => {
-        Journey.update({ username: req.user.username, status: 'progress' }, { 'status': 'done' }, err => {
-            if (err) throw err;
-            req.flash('journeyMessage', 'Your Journey has done');
-            res.writeHead(302, { 'Location': '/user/history' });
-            res.end();
-        });
-    },
     history: (req, res, next) => {
         Journey.find({ username: req.user.username }, (err, journey) => {
             if (err) throw err;
-            // console.log(journey);
             res.render('user/history', { messages: req.flash('journeyMessage'), data: journey }); //list of journey
         });
     },

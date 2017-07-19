@@ -18,14 +18,6 @@ const journeySchema = new Schema({
         type: String,
         required:true
     },
-    create_at:{
-        type: Date,
-        required: true
-    },
-    update_at:{
-        type: Date,
-        required: true
-    }
 });
 
 module.exports = mongoose.model('Journey', journeySchema);

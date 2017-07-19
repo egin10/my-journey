@@ -1,6 +1,9 @@
 <center>
     <h2><i class="fa fa-suitcase" aria-hidden="true"></i> Create My Journey</h2>
 </center>
+{{#if messages}}
+    <div class="alert alert-danger">{{messages}}</div>
+{{/if}}
 <hr>
 <form action="/user/create-journey" method="post">
     <div class="form-group">

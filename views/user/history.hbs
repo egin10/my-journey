@@ -29,7 +29,7 @@
                 <td>
                     <a href="/user/history-details/{{this._id}}" class="btn btn-primary btn-circle"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
                     <a href="/user/history-edit/{{this._id}}" class="btn btn-warning btn-circle"><i class="fa fa-pencil-square" aria-hidden="true"></i></a>
-                    <a href="/user/history-delete/{{this._id}}" class="btn btn-danger btn-circle"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                    <a class="btn btn-danger btn-circle" onclick="confirmDelete('/user/history-delete/{{this._id}}')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                 </td>
             </tr>
             {{/each}}

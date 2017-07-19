@@ -10,6 +10,7 @@ router.get('/', isAuth, userController.home);
 router.get('/create-journey', isAuth, journeyController.createJourney);
 router.post('/create-journey', isAuth, journeyController.createJourneyPost);
 router.get('/create-marker', isAuth, journeyController.createMarker);
+// router.post('/create-marker', isAuth, journeyController.createMarkerPost);
 router.get('/create-marker-done', isAuth, journeyController.createMarkerDone);
 
 router.get('/history', isAuth, journeyController.history);

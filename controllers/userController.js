@@ -4,12 +4,6 @@ module.exports = {
     home: (req, res, next) => {
         res.render('user/home');
     },
-    createJourney: (req, res, next) => {
-        res.render('user/journey');
-    },
-    history: (req, res, next) => {
-        res.render('user/history'); //list of journey
-    },
     maps: (req, res, next) => {
         res.render('user/maps'); //maps where am i now
     },

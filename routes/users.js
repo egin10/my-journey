@@ -1,18 +1,21 @@
 const express = require('express'),
   isAuth = require('../config/auth').isLogin,
   userController = require('../controllers/userController'),
+  journeyController = require('../controllers/journeyController'),
   router = express.Router();
 
 /* GET users listing. */
 router.get('/', isAuth, userController.home);
 
-router.get('/create-journey', isAuth, userController.createJourney);
+router.get('/create-journey', isAuth, journeyController.createJourney);
 
-// router.post('/create-journey', (req, res, next) => {
-//   res.render('user/journey');
-// });
+router.post('/create-journey', isAuth, journeyController.createJourneyPost);
 
-router.get('/history', isAuth, userController.history);
+router.get('/create-marker', isAuth, journeyController.createMarker);
+
+router.get('/create-marker-done', isAuth, journeyController.createMarkerDone);
+
+router.get('/history', isAuth, journeyController.history);
 
 router.get('/maps', isAuth, userController.maps);
 

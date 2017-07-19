@@ -17,6 +17,14 @@ const journeySchema = new Schema({
     status: {
         type: String,
         required:true
+    },
+    create_at:{
+        type: Date,
+        required: true
+    },
+    update_at:{
+        type: Date,
+        required: true
     }
 });
 

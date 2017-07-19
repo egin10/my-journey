@@ -1,8 +1,12 @@
 <center>
     <h2><i class="fa fa-map-marker" aria-hidden="true"></i> Marking </h2>
 </center>
-{{#if messages}}
-    <div class="alert alert-success">{{messages}}</div>
+{{#if messagesJourney}}
+<div class="alert alert-success">{{messagesJourney}}</div>
+{{else if messagesSucc}}
+<div class="alert alert-success">{{messagesSucc}}</div>
+{{else if messagesErr}}
+<div class="alert alert-danger">{{messagesErr}}</div>
 {{/if}}
 <hr>
 <form action="/user/create-marker" method="post">
@@ -10,16 +14,22 @@
         <label for="Name Place">Name Place</label>
         <input type="text" class="form-control" name="namePlace" placeholder="Name Place" required>
     </div>
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-5">
         <label for="Latitude">Latitude</label>
-        <input type="text" class="form-control" name="lat" readonly>
+        <input type="text" class="form-control" name="lat" id="lat" readonly>
     </div>
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-5">
         <label for="Longitude">Longitude</label>
-        <input type="text" class="form-control" name="long" readonly>
+        <input type="text" class="form-control" name="lng" id="lng" readonly>
     </div>
-    <center>
-        <button type="submit" class="btn btn-success">Add <i class="fa fa-puzzle-piece" aria-hidden="true"></i></button>
-        <a href="/user/create-marker-done" class="btn btn-primary">Done <i class="fa fa-check-circle" aria-hidden="true"></i></a>
-    </center>
+    <div class="form-group col-md-2">
+        <label for="Longitude">Position</label>
+        <a class="btn btn-default" onclick="currentPosition()">Check</a>
+    </div>
+    <div class="form-group col-md-12">
+        <center>
+            <button type="submit" class="btn btn-success">Add <i class="fa fa-puzzle-piece" aria-hidden="true"></i></button>
+            <a href="/user/create-marker-done" class="btn btn-primary">Done <i class="fa fa-check-circle" aria-hidden="true"></i></a>
+        </center>
+    </div>
 </form>

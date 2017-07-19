@@ -43,11 +43,23 @@ module.exports = {
             res.render('user/history', { messages: req.flash('journeyMessage'), data: journey }); //list of journey
         });
     },
-    historyDetails: (req, res, next) => {
+    editJourney: (req, res, next) => {
         Journey.findOne({ _id: req.params.id }, (err, journey) => {
             if (err) throw err;
 
-            res.json(journey);
+            // res.json(journey);
+            res.render('user/journeyEdit', { data: journey });
+        });
+    },
+    editJourneyPost: (req, res, next) => {
+        let newData = {
+            tittle: req.body.tittle,
+            descriptions: req.body.descriptions
+        }
+        Journey.update({ username: req.user.username, _id: req.body.id }, newData, err => {
+            if (err) throw err;
+            req.flash('journeyMessage', `Your journey has updated`);
+            res.redirect('/user/history');
         });
     },
     historyDeleteOne: (req, res, next) => {

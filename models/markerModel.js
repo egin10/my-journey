@@ -24,7 +24,8 @@ const markerSchema = new Schema({
     },
     point: {
         type: Number,
-        required: true
+        required: true,
+        default: 0
     },
 });
 

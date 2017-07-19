@@ -1,0 +1,31 @@
+{{#if messages}}
+    <div class="alert alert-success">{{messages}}</div>
+{{/if}}
+<h1><i class="fa fa-map-marker" aria-hidden="true"></i> History Markers of {{tittle}}</h1>
+<hr>
+<table id="example" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Name Place</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th>Point</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each data}}
+            <tr>
+                <td>{{this.nameplace}}</td>
+                <td>{{this.latitude}}</td>
+                <td>{{this.longitude}}</td>
+                <td>{{this.point}}</td>
+                <td>
+                    <a class="btn btn-danger btn-circle" onclick="confirmDelete('#')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+<hr>
+<a href="/user/history" class="btn btn-danger">Back</a>

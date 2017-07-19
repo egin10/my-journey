@@ -12,12 +12,13 @@ router.get('/create-journey', isAuth, journeyController.createJourney);
 router.post('/create-journey', isAuth, journeyController.createJourneyPost);
 
 router.get('/create-marker', isAuth, markerController.createMarker);
-// router.post('/create-marker', isAuth, journeyController.createMarkerPost);
+router.post('/create-marker', isAuth, markerController.createMarkerPost);
 router.get('/create-marker-done', isAuth, markerController.createMarkerDone);
 
 router.get('/history', isAuth, journeyController.history);
-router.get('/history-details/:id', isAuth, journeyController.historyDetails);
-router.get('/history-edit/:id', isAuth, journeyController.historyDetails);
+router.get('/history-details/:id', isAuth, markerController.historyDetailMarkers);
+router.get('/history-edit/:id', isAuth, journeyController.editJourney);
+router.post('/history-edit/', isAuth, journeyController.editJourneyPost);
 router.get('/history-delete/:id', isAuth, journeyController.historyDeleteOne);
 
 router.get('/maps', isAuth, userController.maps);

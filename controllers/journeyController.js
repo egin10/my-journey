@@ -1,5 +1,7 @@
 const Journey = require('../models/journeyModel');
 
+let idJourney = '';
+
 module.exports = {
     createJourney: (req, res, next) => {
         Journey.findOne({ username: req.user.username, 'status': 'progress' }, (err, journey) => {
@@ -47,8 +49,10 @@ module.exports = {
         Journey.findOne({ _id: req.params.id }, (err, journey) => {
             if (err) throw err;
 
-            // res.json(journey);
-            res.render('user/journeyEdit', { data: journey });
+            if(journey){
+                idJourney = journey._id;
+                res.render('user/journeyEdit', { data: journey });
+            }
         });
     },
     editJourneyPost: (req, res, next) => {
@@ -56,7 +60,7 @@ module.exports = {
             tittle: req.body.tittle,
             descriptions: req.body.descriptions
         }
-        Journey.update({ username: req.user.username, _id: req.body.id }, newData, err => {
+        Journey.update({ username: req.user.username, _id: idJourney }, newData, err => {
             if (err) throw err;
             req.flash('journeyMessage', `Your journey has updated`);
             res.redirect('/user/history');

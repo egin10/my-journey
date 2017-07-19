@@ -5,6 +5,10 @@ function confirmDelete(url) {
     return false;
 }
 
+function goBack() {
+    history.back();
+}
+
 function currentPosition(){
     $('#lat').val(1234567890);
     $('#lng').val(0987654321);

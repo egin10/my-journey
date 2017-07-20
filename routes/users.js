@@ -16,6 +16,7 @@ router.post('/create-marker', isAuth, markerController.createMarkerPost);
 router.get('/create-marker-done', isAuth, markerController.createMarkerDone);
 router.get('/update-marker/:id', isAuth, markerController.updateMarker);
 router.post('/update-marker', isAuth, markerController.updateMarkerPost);
+router.get('/delete-marker/:id', isAuth, markerController.deleteMarker);
 
 router.get('/history', isAuth, journeyController.history);
 router.get('/history-details/:id', isAuth, markerController.historyDetailMarkers);

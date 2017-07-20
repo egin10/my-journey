@@ -9,7 +9,7 @@
                 <th>Name Place</th>
                 <th>Latitude</th>
                 <th>Longitude</th>
-                <th>Point</th>
+                <th>Point Markers</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -22,7 +22,7 @@
                 <td>{{this.point}}</td>
                 <td>
                     <a href="/user/update-marker/{{this._id}}" class="btn btn-warning btn-circle"><i class="fa fa-pencil-square" aria-hidden="true"></i></a>
-                    <a class="btn btn-danger btn-circle" onclick="confirmDelete('#')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                    <a class="btn btn-danger btn-circle" onclick="confirmDelete('/user/delete-marker/{{this._id}}')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                 </td>
             </tr>
             {{/each}}

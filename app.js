@@ -5,6 +5,7 @@ const express = require('express'),
   cookieParser = require('cookie-parser'),
   exphbs = require('express-handlebars'),
   bodyParser = require('body-parser'),
+  expressValidation = require('express-validator'),
   session = require('express-session'),
   flash = require('connect-flash'),
   mongoose = require('mongoose'),
@@ -26,6 +27,7 @@ app.set('view engine', 'hbs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(expressValidation());
 app.use(session({
   secret: 'KiwKiwKiw',
   resave: false,

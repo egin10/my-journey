@@ -2,6 +2,7 @@ const Journey = require('../models/journeyModel'),
     Marker = require('../models/markerModel');
 
 let idMarker = '';
+let poitMarker = 0;
 let idHistory = '';
 
 module.exports = {
@@ -10,11 +11,10 @@ module.exports = {
             if (err) throw err;
 
             if (journey == '') {
-                console.log(journey);
                 res.writeHead(302, { 'Location': '/user/create-journey' });
                 res.end();
             } else {
-                res.render('user/marker', { messagesJourney: req.flash('journeyMessage'), messagesSucc: req.flash('markerMessageSucc'), messagesErr: req.flash('markerMessageErr') });
+                res.render('user/marker', { number: poitMarker, messagesJourney: req.flash('journeyMessage'), messagesSucc: req.flash('markerMessageSucc'), messagesErr: req.flash('markerMessageErr') });
             }
         });
     },
@@ -30,17 +30,30 @@ module.exports = {
                     res.writeHead(302, { 'Location': '/user/create-marker' });
                     res.end();
                 } else {
-                    let newMarker = new Marker();
-                    newMarker.username = req.user.username;
-                    newMarker.tittle = journey.tittle;
-                    newMarker.nameplace = req.body.namePlace;
-                    newMarker.latitude = req.body.lat;
-                    newMarker.longitude = req.body.lng;
-                    newMarker.save((err) => {
-                        if (err) throw err;
+                    //Validation Form
+                    req.checkBody('namePlace', 'Name Place is required').notEmpty();
+                    req.checkBody('lat', 'Latitude is required').notEmpty();
+                    req.checkBody('lng', 'Longitude is required').notEmpty();
 
-                        req.flash('markerMessageSucc', `${req.body.namePlace} has saved`);
-                        res.redirect('/user/create-marker');
+                    req.getValidationResult().then(function (result) {
+                        if (result.array() != '') {
+                            res.render('user/marker', { validations: result.array() });
+                        } else {
+                            let newMarker = new Marker();
+                            newMarker.username = req.user.username;
+                            newMarker.tittle = journey.tittle;
+                            newMarker.nameplace = req.body.namePlace;
+                            newMarker.latitude = req.body.lat;
+                            newMarker.longitude = req.body.lng;
+                            newMarker.point = poitMarker;
+                            newMarker.save((err) => {
+                                if (err) throw err;
+
+                                poitMarker += 1;
+                                req.flash('markerMessageSucc', `${req.body.namePlace} has saved`);
+                                res.redirect('/user/create-marker');
+                            });
+                        }
                     });
                 }
             });
@@ -49,6 +62,8 @@ module.exports = {
     createMarkerDone: (req, res, next) => {
         Journey.update({ username: req.user.username, status: 'progress' }, { 'status': 'done' }, err => {
             if (err) throw err;
+
+            poitMarker = 0;
             req.flash('journeyMessage', 'Your Journey has done');
             res.writeHead(302, { 'Location': '/user/history' });
             res.end();
@@ -62,7 +77,7 @@ module.exports = {
                 idHistory = req.params.id;
                 Marker.find({ username: journey.username, tittle: journey.tittle }, (err, marker) => {
                     if (err) throw err;
-                    
+
                     res.render('user/historyMarker', { data: marker, tittle: journey.tittle, messages: req.flash('markerEditMessage') });
                 });
             }
@@ -71,7 +86,7 @@ module.exports = {
     updateMarker: (req, res, next) => {
         Marker.findOne({ username: req.user.username, _id: req.params.id }, (err, marker) => {
             if (err) throw err;
-            
+
             idMarker = req.params.id;
             res.render('user/markerEdit', { data: marker });
         });
@@ -80,6 +95,14 @@ module.exports = {
         Marker.update({ _id: idMarker }, { nameplace: req.body.namePlace }, err => {
             if (err) throw err;
             req.flash('markerEditMessage', `Your marker ${req.body.namePlace} has updated`);
+            res.redirect(`/user/history-details/${idHistory}`);
+        });
+    },
+    deleteMarker: (req, res, next) => {
+        Marker.remove({ _id: req.params.id }, err => {
+            if (err) throw err;
+
+            req.flash('markerEditMessage', `Your marker has delete`);
             res.redirect(`/user/history-details/${idHistory}`);
         });
     },

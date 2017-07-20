@@ -15,13 +15,24 @@
 function markerMaps() {
     let data = {{{data}}};
     let obj = Object.keys(data);
+    let infowindow = new google.maps.InfoWindow();
 
-    for(let i = 0; i < obj.length; i++){
-        let marker = new google.maps.Marker({
-            position: { lat: data[i].latitude, lng: data[i].longitude },
-            map: map,
-            animation: google.maps.Animation.DROP
-        });
+    let marker, i;
+    // proses penambahan marker lainnya di jogja
+    for (i = 0; i < obj.length; i++) {  
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(data[i].latitude, data[i].longitude),
+        map: map,
+         
+      });
+      // Menampilkan informasi lokasi    
+      google.maps.event.addListener(marker, 'click', ((marker, i)=> {
+        return function() {
+          infowindow.setContent(data[i].nameplace);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+
     }
 
     map.setZoom(5);

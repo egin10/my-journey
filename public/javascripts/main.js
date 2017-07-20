@@ -9,33 +9,42 @@ function goBack() {
     history.back();
 }
 
-function currentPosition() {
-    $('#lat').val(1234567890);
-    $('#lng').val(0987654321);
-}
-
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
-        center: { lat: -34.397, lng: 150.644 },
-        zoom: 10
+        center: { lat: -4.742701, lng: 114.539448 },
+        zoom: 4
     });
 }
 
 function myPosition() {
     infoWindow = new google.maps.InfoWindow;
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function (position) {
-            var pos = {
+        navigator.geolocation.getCurrentPosition( position => {
+            let pos = {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             };
 
-            infoWindow.setPosition(pos);
-            infoWindow.setContent('Your Location found.');
-            infoWindow.open(map);
+            let marker = new google.maps.Marker({
+                position: pos,
+                map: map,
+                animation: google.maps.Animation.DROP,
+                draggable: true
+            });
+
+            marker.setMap(map);
             map.setCenter(pos);
-            map.setZoom(13);
-        }, function () {
+            map.setZoom(12);
+            $('#lat').val(pos.lat);
+            $('#lng').val(pos.lng);
+
+            marker.addListener('click', () => {
+                new google.maps.InfoWindow({
+                    content: `Your position \n ${pos.lat} , ${pos.lng}`,
+                    maxWidth: 200,
+                }).open(map, marker);
+            });
+        }, () => {
             handleLocationError(true, infoWindow, map.getCenter());
         });
     } else {

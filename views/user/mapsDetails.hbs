@@ -18,17 +18,15 @@ function markerMaps() {
     let infowindow = new google.maps.InfoWindow();
 
     let marker, i;
-    // proses penambahan marker lainnya di jogja
     for (i = 0; i < obj.length; i++) {  
       marker = new google.maps.Marker({
         position: new google.maps.LatLng(data[i].latitude, data[i].longitude),
         map: map,
-         
+        animation: google.maps.Animation.DROP      
       });
-      // Menampilkan informasi lokasi    
       google.maps.event.addListener(marker, 'click', ((marker, i)=> {
         return function() {
-          infowindow.setContent(data[i].nameplace);
+          infowindow.setContent(data[i].nameplace + ' path point: ' + data[i].point);
           infowindow.open(map, marker);
         }
       })(marker, i));

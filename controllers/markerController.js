@@ -114,7 +114,7 @@ module.exports = {
                 Marker.find({ username: journey.username, tittle: journey.tittle }, (err, marker) => {
                     if (err) return err;
 
-                    res.render('user/mapsDetails', { data: marker, tittle: journey.tittle });
+                    res.render('user/mapsDetails', { data: JSON.stringify(marker), tittle: journey.tittle });
                 });
             }
         });

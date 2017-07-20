@@ -11,10 +11,20 @@
     <button class="btn btn-success" onclick="markerMaps()">Show</button>
     <button class="btn btn-danger" onclick="goBack()">Back</button>
 </center>
-
 <script>
-    function markerMaps() {
-        alert('Coming Soon to show marker of History. Please be patient');
+function markerMaps() {
+    let data = {{{data}}};
+    let obj = Object.keys(data);
+
+    for(let i = 0; i < obj.length; i++){
+        let marker = new google.maps.Marker({
+            position: { lat: data[i].latitude, lng: data[i].longitude },
+            map: map,
+            animation: google.maps.Animation.DROP
+        });
     }
+
+    map.setZoom(5);
+}
 </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key={{API_KEY}}&callback=initMap"type="text/javascript"></script>

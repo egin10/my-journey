@@ -41,13 +41,13 @@ module.exports = {
     },
     history: (req, res, next) => {
         Journey.find({ username: req.user.username }, (err, journey) => {
-            if (err) throw err;
+            if (err) return err;
             res.render('user/history', { messages: req.flash('journeyMessage'), data: journey }); //list of journey
         });
     },
     editJourney: (req, res, next) => {
         Journey.findOne({ _id: req.params.id }, (err, journey) => {
-            if (err) throw err;
+            if (err) return err;
 
             if(journey){
                 idJourney = journey._id;
@@ -61,14 +61,14 @@ module.exports = {
             descriptions: req.body.descriptions
         }
         Journey.update({ username: req.user.username, _id: idJourney }, newData, err => {
-            if (err) throw err;
+            if (err) return err;
             req.flash('journeyMessage', `Your journey has updated`);
             res.redirect('/user/history');
         });
     },
     historyDeleteOne: (req, res, next) => {
         Journey.remove({ _id: req.params.id }, (err) => {
-            if (err) throw err;
+            if (err) return err;
             req.flash('journeyMessage', `Your Journey with id : ${req.params.id} has deleted!`);
             res.writeHead(302, { 'Location': '/user/history' });
             res.end();

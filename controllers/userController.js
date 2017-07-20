@@ -12,7 +12,7 @@ module.exports = {
     },
     settingPost: (req, res, next) => {
         User.findOne({ 'username': req.user.username }, (err, user) => {
-            if (err) throw err;
+            if (err) return err;
 
             if (!user) return req.flash('settingMessageError', `Who are you?`);
 
@@ -27,7 +27,7 @@ module.exports = {
                 User.update({ 'username': req.user.username }, //searching on badatase
                     newData, //newData
                     err => {
-                        if (err) throw err;
+                        if (err) return err;
                         req.flash('settingMessageSuccess', `Your profile has updated`);
                         res.redirect('/user/setting');
                     });

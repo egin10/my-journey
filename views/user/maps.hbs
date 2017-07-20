@@ -5,10 +5,12 @@
 </center>
 <hr>
 <p>
-    <div id="map" onload="initMap()"></div>
+    <div id="map"></div>
     <hr>
     <center>
         <span>Please Allow your browser to access your location to get your current location.</span><br>
         <button class="btn btn-default" onclick="myPosition()">Check my position</button>
     </center>
 </p>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key={{API_KEY}}&callback=initMap"type="text/javascript"></script>

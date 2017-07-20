@@ -29,7 +29,7 @@ module.exports = passport => {
                 newUser.password = newUser.generateHash(password);
                 newUser.email = req.body.email;
                 newUser.save((err) => {
-                    if (err) throw err;
+                    if (err) return err;
                     return done(null, newUser);
                 });
             }

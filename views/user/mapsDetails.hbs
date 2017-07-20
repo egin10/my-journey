@@ -1,11 +1,12 @@
 <center>
     <h1>
-        Markers of your journey <i class="fa fa-globe" aria-hidden="true"></i>
+        Markers of <font color="red">{{tittle}}</font> <i class="fa fa-globe" aria-hidden="true"></i>
     </h1>
 </center>
 <hr>
 <div id="map"></div>
 <hr>
+<div id="test"></div>
 <center>
     <button class="btn btn-success" onclick="markerMaps()">Show</button>
     <button class="btn btn-danger" onclick="goBack()">Back</button>
@@ -13,8 +14,7 @@
 
 <script>
     function markerMaps() {
-        let text = '{{coba}}';
-        alert(text);
+        alert('Coming Soon to show marker of History. Please be patient');
     }
-
 </script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key={{API_KEY}}&callback=initMap"type="text/javascript"></script>

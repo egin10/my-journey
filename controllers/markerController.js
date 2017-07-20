@@ -8,7 +8,7 @@ let idHistory = '';
 module.exports = {
     createMarker: (req, res, next) => {
         Journey.find({ username: req.user.username, status: 'progress' }, (err, journey) => {
-            if (err) throw err;
+            if (err) return err;
 
             if (journey == '') {
                 res.writeHead(302, { 'Location': '/user/create-journey' });
@@ -20,10 +20,10 @@ module.exports = {
     },
     createMarkerPost: (req, res, next) => {
         Journey.findOne({ username: req.user.username, status: 'progress' }, (err, journey) => {
-            if (err) throw err;
+            if (err) return err;
 
             Marker.findOne({ username: req.user.username, tittle: journey.tittle, nameplace: req.body.namePlace }, (err, marker) => {
-                if (err) throw err;
+                if (err) return err;
 
                 if (marker) {
                     req.flash('markerMessageErr', 'The name place of merker is already exists');
@@ -47,7 +47,7 @@ module.exports = {
                             newMarker.longitude = req.body.lng;
                             newMarker.point = poitMarker;
                             newMarker.save((err) => {
-                                if (err) throw err;
+                                if (err) return err;
 
                                 poitMarker += 1;
                                 req.flash('markerMessageSucc', `${req.body.namePlace} has saved`);
@@ -61,7 +61,7 @@ module.exports = {
     },
     createMarkerDone: (req, res, next) => {
         Journey.update({ username: req.user.username, status: 'progress' }, { 'status': 'done' }, err => {
-            if (err) throw err;
+            if (err) return err;
 
             poitMarker = 0;
             req.flash('journeyMessage', 'Your Journey has done');
@@ -71,12 +71,12 @@ module.exports = {
     },
     historyDetailMarkers: (req, res, next) => {
         Journey.findOne({ _id: req.params.id }, (err, journey) => {
-            if (err) throw err;
+            if (err) return err;
 
             if (journey) {
                 idHistory = req.params.id;
                 Marker.find({ username: journey.username, tittle: journey.tittle }, (err, marker) => {
-                    if (err) throw err;
+                    if (err) return err;
 
                     res.render('user/historyMarker', { data: marker, tittle: journey.tittle, messages: req.flash('markerEditMessage') });
                 });
@@ -85,7 +85,7 @@ module.exports = {
     },
     updateMarker: (req, res, next) => {
         Marker.findOne({ username: req.user.username, _id: req.params.id }, (err, marker) => {
-            if (err) throw err;
+            if (err) return err;
 
             idMarker = req.params.id;
             res.render('user/markerEdit', { data: marker });
@@ -93,14 +93,14 @@ module.exports = {
     },
     updateMarkerPost: (req, res, next) => {
         Marker.update({ _id: idMarker }, { nameplace: req.body.namePlace }, err => {
-            if (err) throw err;
+            if (err) return err;
             req.flash('markerEditMessage', `Your marker ${req.body.namePlace} has updated`);
             res.redirect(`/user/history-details/${idHistory}`);
         });
     },
     deleteMarker: (req, res, next) => {
         Marker.remove({ _id: req.params.id }, err => {
-            if (err) throw err;
+            if (err) return err;
 
             req.flash('markerEditMessage', `Your marker has delete`);
             res.redirect(`/user/history-details/${idHistory}`);
@@ -108,11 +108,11 @@ module.exports = {
     },
     mapsDetails: (req, res, next) => {
         Journey.findOne({ _id: req.params.id }, (err, journey) => {
-            if (err) throw err;
+            if (err) return err;
 
             if (journey) {
                 Marker.find({ username: journey.username, tittle: journey.tittle }, (err, marker) => {
-                    if (err) throw err;
+                    if (err) return err;
 
                     res.render('user/mapsDetails', { data: marker, tittle: journey.tittle });
                 });

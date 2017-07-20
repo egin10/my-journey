@@ -44,6 +44,9 @@ require('./config/passport')(passport);
 app.use((req, res, next) => {
   res.locals.Auth = req.isAuthenticated();
   res.locals.User = req.user || null;
+  // res.locals.API_KEY = require('./config/gAPI').API_KEY;
+  // use code above ^
+  res.locals.API_KEY = require('./config/g_api').API_KEY;
   next();
 });
 

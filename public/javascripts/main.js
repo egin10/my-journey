@@ -24,7 +24,7 @@ function myPosition() {
                 lng: position.coords.longitude
             };
 
-            let marker = new google.maps.Marker({
+            marker = new google.maps.Marker({
                 position: pos,
                 map: map,
                 animation: google.maps.Animation.DROP

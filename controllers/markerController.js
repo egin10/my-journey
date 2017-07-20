@@ -106,4 +106,17 @@ module.exports = {
             res.redirect(`/user/history-details/${idHistory}`);
         });
     },
+    mapsDetails: (req, res, next) => {
+        Journey.findOne({ _id: req.params.id }, (err, journey) => {
+            if (err) throw err;
+
+            if (journey) {
+                Marker.find({ username: journey.username, tittle: journey.tittle }, (err, marker) => {
+                    if (err) throw err;
+
+                    res.render('user/mapsDetails', { data: marker, tittle: journey.tittle });
+                });
+            }
+        });
+    },
 }

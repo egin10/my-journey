@@ -25,6 +25,7 @@ router.post('/history-edit/', isAuth, journeyController.editJourneyPost);
 router.get('/history-delete/:id', isAuth, journeyController.historyDeleteOne);
 
 router.get('/maps', isAuth, userController.maps);
+router.get('/maps-details/:id', isAuth, markerController.mapsDetails);
 
 router.get('/setting', isAuth, userController.setting);
 router.post('/setting', isAuth, userController.settingPost);

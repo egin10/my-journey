@@ -17,9 +17,8 @@ function initMap() {
 }
 
 function myPosition() {
-    infoWindow = new google.maps.InfoWindow;
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition( position => {
+        navigator.geolocation.getCurrentPosition(position => {
             let pos = {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
@@ -28,8 +27,7 @@ function myPosition() {
             let marker = new google.maps.Marker({
                 position: pos,
                 map: map,
-                animation: google.maps.Animation.DROP,
-                draggable: true
+                animation: google.maps.Animation.DROP
             });
 
             marker.setMap(map);

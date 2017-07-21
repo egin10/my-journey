@@ -18,20 +18,19 @@ function markerMaps() {
     let infowindow = new google.maps.InfoWindow();
 
     let marker, i;
-    for (i = 0; i < obj.length; i++) {  
+    obj.map(key => {
       marker = new google.maps.Marker({
-        position: new google.maps.LatLng(data[i].latitude, data[i].longitude),
+        position: new google.maps.LatLng(data[key].latitude, data[key].longitude),
         map: map,
         animation: google.maps.Animation.DROP      
       });
       google.maps.event.addListener(marker, 'click', ((marker, i)=> {
         return function() {
-          infowindow.setContent(data[i].nameplace + ' path point: ' + data[i].point);
+          infowindow.setContent(data[key].nameplace + ' path point: ' + data[key].point);
           infowindow.open(map, marker);
         }
       })(marker, i));
-
-    }
+    });
 
     map.setZoom(5);
 }
